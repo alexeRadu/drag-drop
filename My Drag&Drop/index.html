@@ -1,0 +1,36 @@
+<html>
+  <title>Drag & Drop</title>
+  <link rel="stylesheet" href="styles.css">
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/utils/Draggable.min.js"></script>
+
+  <body>
+    <div class="navigation">
+      <div class="nav-center" drop-zone="nav">
+          <img class="drop-item" src="img/img1.jpg" height="70px" width="auto">
+          <img class="drop-item" src="img/img2.jpg" height="70px" width="auto">
+          <img class="drop-item" src="img/img3.jpg" height="70px" width="auto">
+          <img class="drop-item" src="img/img4.jpg" height="70px" width="auto">
+          <img class="drop-item" src="img/img5.jpg" height="70px" width="auto">
+          <img class="drop-item" src="img/img6.jpg" height="70px" width="auto">
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="left-content-wrapper">
+        <div class="left-content" drop-zone="main-left">
+
+        </div>
+      </div>
+      <div class="right-content-wrapper">
+        <div class="right-content" drop-zone="main-right">
+
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script src="code.js"></script>
+</html>
