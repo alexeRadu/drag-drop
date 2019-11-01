@@ -49,16 +49,16 @@ function createDraggable(scope) {
 				if (self.hitTest(zone.element, threshold)) {
 					scope.zone = zone;
 					scope.item.prependTo(zone.element);
-					
-					if (zone.name == "nav") {
-						scope.item.attr("position", "relative");
-						TweenLite.set(scope.item, { x: 0, y:  0});
-					} else {
-						scope.item.attr("position", "absolute");
-						TweenLite.set(scope.item, { x: 0, y:  zone.height - scope.height});
-					}
-				}
+				} 
 			});
+
+			if (scope.zone.name == "nav") {
+				scope.item.attr("position", "relative");
+				TweenLite.set(scope.item, { x: 0, y:  0});
+			} else {
+				scope.item.attr("position", "absolute");
+				TweenLite.set(scope.item, { x: 0, y:  scope.zone.height - scope.height});
+			}
 		}
 	});
 
