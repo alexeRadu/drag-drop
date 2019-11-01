@@ -10,7 +10,10 @@ $("[drop-zone]").each(function() {
 		element : zone,
 		name    : name,
 		width	: zone.outerWidth(),
-		height	: zone.outerHeight()
+		height	: zone.outerHeight(),
+		occupied: false,
+		get x() { return zone.offset().left; },
+		get y() { return zone.offset().top; }
 	};
 });
 
@@ -23,8 +26,8 @@ $(".drop-item").each(function(index) {
 		zone  	: dropZones["nav"],
 		width	: item.outerWidth(),
 		height	: item.outerHeight(),
-		get x() { return item.position().left; },
-		get y() { return item.position().top;  }
+		get x() { return item.offset().left; },
+		get y() { return item.offset().top;  }
 	};
 
 	scope.draggable = createDraggable(scope);
@@ -44,21 +47,32 @@ function createDraggable(scope) {
 	scope.draggable = new Draggable(scope.item, {
 		onRelease : function () {
 			var self = this;
+			let oldXPos = scope.x;
 
-			$.each(dropZones, function(key, zone) {
-				if (self.hitTest(zone.element, threshold)) {
+			dropZoneNames = Object.keys(dropZones);
+			for (i = 0; i < dropZoneNames.length; i++) {
+				dzName = dropZoneNames[i];
+				zone = dropZones[dzName];
+				
+				if (self.hitTest(zone.element, threshold) && (zone != scope.zone) && (dzName == "nav" || !zone.occupied)) {
+					zone.occupied = true;
+					scope.zone.occupied = false;	
 					scope.zone = zone;
-					scope.item.prependTo(zone.element);
+					scope.item.appendTo(zone.element);
+					
+					break;
 				} 
-			});
 
+			}
+			
 			if (scope.zone.name == "nav") {
-				scope.item.attr("position", "relative");
 				TweenLite.set(scope.item, { x: 0, y:  0});
 			} else {
-				scope.item.attr("position", "absolute");
 				TweenLite.set(scope.item, { x: 0, y:  scope.zone.height - scope.height});
 			}
+			
+			// TweenLite.set(scope.item, { x: 0, y:  scope.zone.height - scope.height});
+			// TweenLite.set(scope.item, {x: oldXPos - scope.zone.x, y: scope.zone.height - scope.height});
 		}
 	});
 
